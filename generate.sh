@@ -8,14 +8,14 @@ if [ -n "$1" ];then
             rom_script="$rom_script"$'\n''$(call inherit-product, '$i')'
         done
     else
-		rom_script='$(call inherit-product, device/phh/treble/'$1'.mk)'
+		rom_script='$(call inherit-product, device/pal/imphone/'$1'.mk)'
 	fi
 fi
 
 echo 'PRODUCT_MAKEFILES := \' > AndroidProducts.mk
 
 for part in a ab;do
-	for apps in vanilla gapps foss gapps-go;do
+	for apps in vanilla foss;do
 		for arch in arm64 arm a64;do
 			for su in yes no;do
 				apps_suffix=""
@@ -24,16 +24,6 @@ for part in a ab;do
 				extra_packages=""
                 vndk="vndk.mk"
 		optional_base=""
-				if [ "$apps" == "gapps" ];then
-					apps_suffix="g"
-					apps_script='$(call inherit-product, device/phh/treble/gapps.mk)'
-					apps_name="with GApps"
-				fi
-				if [ "$apps" == "gapps-go" ];then
-					apps_suffix="o"
-					apps_script='$(call inherit-product, device/phh/treble/gapps-go.mk)'
-					apps_name="Go"
-				fi
 				if [ "$apps" == "foss" ];then
 					apps_suffix="f"
 					apps_script='$(call inherit-product, vendor/foss/foss.mk)'
@@ -42,7 +32,6 @@ for part in a ab;do
 				if [ "$apps" == "vanilla" ];then
 					apps_suffix="v"
 					apps_script=''
-					apps_name="vanilla"
 				fi
 				if [ "$arch" == "arm" ];then
 					vndk="vndk-binder32.mk"
@@ -61,10 +50,10 @@ for part in a ab;do
 				if [ "$part" == 'ab' ];then
 					part_suffix='b'
 				else
-					optional_base='$(call inherit-product, device/phh/treble/base-sas.mk)'
+					optional_base='$(call inherit-product, device/pal/imphone/base-sas.mk)'
 				fi
 
-				target="treble_${arch}_${part_suffix}${apps_suffix}${su_suffix}"
+				target="iMOS_${arch}_${part_suffix}${apps_suffix}${su_suffix}"
 
 				baseArch="$arch"
 				if [ "$arch" = "a64" ];then
@@ -77,19 +66,18 @@ for part in a ab;do
 				fi
 
 				cat > ${target}.mk << EOF
-TARGET_GAPPS_ARCH := ${baseArch}
-\$(call inherit-product, device/phh/treble/base-pre.mk)
+\$(call inherit-product, device/pal/imphone/base-pre.mk)
 include build/make/target/product/aosp_${baseArch}.mk
-\$(call inherit-product, device/phh/treble/base.mk)
+\$(call inherit-product, device/pal/imphone/base.mk)
 $optional_base
 $apps_script
 $rom_script
 
 PRODUCT_NAME := $target
-PRODUCT_DEVICE := phhgsi_${arch}_$part
-PRODUCT_BRAND := google
-PRODUCT_SYSTEM_BRAND := google
-PRODUCT_MODEL := Phh-Treble $apps_name
+PRODUCT_DEVICE := imos_${arch}_$part
+PRODUCT_BRAND := pal
+PRODUCT_SYSTEM_BRAND := pal
+PRODUCT_MODEL := iMPhone V1 $apps_name
 
 # Overwrite the inherited "emulator" characteristics
 PRODUCT_CHARACTERISTICS := device

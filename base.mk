@@ -12,8 +12,8 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
 	device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
 
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR += device/phh/treble/sepolicy
-PRODUCT_PACKAGE_OVERLAYS += device/phh/treble/overlay
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += device/pal/imphone/sepolicy
+PRODUCT_PACKAGE_OVERLAYS += device/pal/imphone/overlay
 
 $(call inherit-product, vendor/hardware_overlay/overlay.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
@@ -38,34 +38,34 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 #VNDK config files
 PRODUCT_COPY_FILES += \
-	device/phh/treble/vndk-detect:system/bin/vndk-detect \
-	device/phh/treble/vndk.rc:system/etc/init/vndk.rc \
+	device/pal/imphone/vndk-detect:system/bin/vndk-detect \
+	device/pal/imphone/vndk.rc:system/etc/init/vndk.rc \
 
 #USB Audio
 PRODUCT_COPY_FILES += \
 	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:system/etc/usb_audio_policy_configuration.xml \
-	device/phh/treble/files/fake_audio_policy_volume.xml:system/etc/fake_audio_policy_volume.xml \
+	device/pal/imphone/files/fake_audio_policy_volume.xml:system/etc/fake_audio_policy_volume.xml \
 
 # NFC:
 #   Provide default libnfc-nci.conf file for devices that does not have one in
 #   vendor/etc
 PRODUCT_COPY_FILES += \
-	device/phh/treble/nfc/libnfc-nci.conf:system/phh/libnfc-nci-oreo.conf \
-	device/phh/treble/nfc/libnfc-nci-huawei.conf:system/phh/libnfc-nci-huawei.conf
+	device/pal/imphone/nfc/libnfc-nci.conf:system/phh/libnfc-nci-oreo.conf \
+	device/pal/imphone/nfc/libnfc-nci-huawei.conf:system/phh/libnfc-nci-huawei.conf
 
 # LineageOS build may need this to make NFC work
 PRODUCT_PACKAGES += \
         NfcNci \
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/rw-system.sh:system/bin/rw-system.sh \
-	device/phh/treble/phh-on-data.sh:system/bin/phh-on-data.sh \
-	device/phh/treble/phh-prop-handler.sh:system/bin/phh-prop-handler.sh \
-	device/phh/treble/fixSPL/getSPL.arm:system/bin/getSPL
+	device/pal/imphone/rw-system.sh:system/bin/rw-system.sh \
+	device/pal/imphone/phh-on-data.sh:system/bin/phh-on-data.sh \
+	device/pal/imphone/phh-prop-handler.sh:system/bin/phh-prop-handler.sh \
+	device/pal/imphone/fixSPL/getSPL.arm:system/bin/getSPL
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/empty:system/phh/empty \
-	device/phh/treble/phh-on-boot.sh:system/bin/phh-on-boot.sh
+	device/pal/imphone/empty:system/phh/empty \
+	device/pal/imphone/phh-on-boot.sh:system/bin/phh-on-boot.sh
 
 PRODUCT_PACKAGES += \
 	treble-environ-rc \
@@ -78,12 +78,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	huawei-charger
 PRODUCT_COPY_FILES += \
-	$(call find-copy-subdir-files,*,device/phh/treble/huawei_charger/files,system/etc/charger)
+	$(call find-copy-subdir-files,*,device/pal/imphone/huawei_charger/files,system/etc/charger)
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/twrp/twrp.rc:system/etc/init/twrp.rc \
-	device/phh/treble/twrp/twrp.sh:system/bin/twrp.sh \
-	device/phh/treble/twrp/busybox-armv7l:system/bin/busybox_phh
+	device/pal/imphone/twrp/twrp.rc:system/etc/init/twrp.rc \
+	device/pal/imphone/twrp/twrp.sh:system/bin/twrp.sh \
+	device/pal/imphone/twrp/busybox-armv7l:system/bin/busybox_phh
 
 PRODUCT_PACKAGES += \
     simg2img_simple \
@@ -105,36 +105,36 @@ PRODUCT_PACKAGES += \
 	vendor.xiaomi.hardware.displayfeature-V1.0-java
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/interfaces.xml:system/etc/permissions/interfaces.xml
+	device/pal/imphone/interfaces.xml:system/etc/permissions/interfaces.xml
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/files/samsung-gpio_keys.kl:system/phh/samsung-gpio_keys.kl \
-	device/phh/treble/files/samsung-sec_touchscreen.kl:system/phh/samsung-sec_touchscreen.kl \
-	device/phh/treble/files/samsung-sec_touchkey.kl:system/phh/samsung-sec_touchkey.kl \
-	device/phh/treble/files/oneplus6-synaptics_s3320.kl:system/phh/oneplus6-synaptics_s3320.kl \
-	device/phh/treble/files/huawei-fingerprint.kl:system/phh/huawei/fingerprint.kl \
-	device/phh/treble/files/samsung-sec_e-pen.idc:system/usr/idc/sec_e-pen.idc \
-	device/phh/treble/files/samsung-9810-floating_feature.xml:system/ph/sam-9810-flo_feat.xml \
-	device/phh/treble/files/mimix3-gpio-keys.kl:system/phh/mimix3-gpio-keys.kl \
-	device/phh/treble/files/nokia-soc_gpio_keys.kl:system/phh/nokia-soc_gpio_keys.kl \
-	device/phh/treble/files/lenovo-synaptics_dsx.kl:system/phh/lenovo-synaptics_dsx.kl \
-	device/phh/treble/files/oppo-touchpanel.kl:system/phh/oppo-touchpanel.kl \
-	device/phh/treble/files/google-uinput-fpc.kl:system/phh/google-uinput-fpc.kl \
-	device/phh/treble/files/moto-uinput-egis.kl:system/phh/moto-uinput-egis.kl \
-	device/phh/treble/files/daisy-buttonJack.kl:system/phh/daisy-buttonJack.kl \
-	device/phh/treble/files/daisy-uinput-fpc.kl:system/phh/daisy-uinput-fpc.kl \
-	device/phh/treble/files/daisy-uinput-goodix.kl:system/phh/daisy-uinput-goodix.kl \
-	device/phh/treble/files/nubia-nubia_synaptics_dsx.kl:system/phh/nubia-nubia_synaptics_dsx.kl \
-	device/phh/treble/files/unihertz-mtk-kpd.kl:system/phh/unihertz-mtk-kpd.kl \
-	device/phh/treble/files/unihertz-mtk-tpd.kl:system/phh/unihertz-mtk-tpd.kl \
-	device/phh/treble/files/unihertz-mtk-tpd-kpd.kl:system/phh/unihertz-mtk-tpd-kpd.kl \
-	device/phh/treble/files/unihertz-fingerprint_key.kl:system/phh/unihertz-fingerprint_key.kl \
-	device/phh/treble/files/zf6-goodixfp.kl:system/phh/zf6-goodixfp.kl \
-	device/phh/treble/files/zf6-googlekey_input.kl:system/phh/zf6-googlekey_input.kl \
-	device/phh/treble/files/teracube2e-mtk-kpd.kl:system/phh/teracube2e-mtk-kpd.kl \
-	device/phh/treble/files/bv9500plus-mtk-kpd.kl:system/phh/bv9500plus-mtk-kpd.kl \
-	device/phh/treble/files/moto-liber-gpio-keys.kl:system/phh/moto-liber-gpio-keys.kl \
-	device/phh/treble/files/tecno-touchpanel.kl:system/phh/tecno-touchpanel.kl \
+	device/pal/imphone/files/samsung-gpio_keys.kl:system/phh/samsung-gpio_keys.kl \
+	device/pal/imphone/files/samsung-sec_touchscreen.kl:system/phh/samsung-sec_touchscreen.kl \
+	device/pal/imphone/files/samsung-sec_touchkey.kl:system/phh/samsung-sec_touchkey.kl \
+	device/pal/imphone/files/oneplus6-synaptics_s3320.kl:system/phh/oneplus6-synaptics_s3320.kl \
+	device/pal/imphone/files/huawei-fingerprint.kl:system/phh/huawei/fingerprint.kl \
+	device/pal/imphone/files/samsung-sec_e-pen.idc:system/usr/idc/sec_e-pen.idc \
+	device/pal/imphone/files/samsung-9810-floating_feature.xml:system/ph/sam-9810-flo_feat.xml \
+	device/pal/imphone/files/mimix3-gpio-keys.kl:system/phh/mimix3-gpio-keys.kl \
+	device/pal/imphone/files/nokia-soc_gpio_keys.kl:system/phh/nokia-soc_gpio_keys.kl \
+	device/pal/imphone/files/lenovo-synaptics_dsx.kl:system/phh/lenovo-synaptics_dsx.kl \
+	device/pal/imphone/files/oppo-touchpanel.kl:system/phh/oppo-touchpanel.kl \
+	device/pal/imphone/files/google-uinput-fpc.kl:system/phh/google-uinput-fpc.kl \
+	device/pal/imphone/files/moto-uinput-egis.kl:system/phh/moto-uinput-egis.kl \
+	device/pal/imphone/files/daisy-buttonJack.kl:system/phh/daisy-buttonJack.kl \
+	device/pal/imphone/files/daisy-uinput-fpc.kl:system/phh/daisy-uinput-fpc.kl \
+	device/pal/imphone/files/daisy-uinput-goodix.kl:system/phh/daisy-uinput-goodix.kl \
+	device/pal/imphone/files/nubia-nubia_synaptics_dsx.kl:system/phh/nubia-nubia_synaptics_dsx.kl \
+	device/pal/imphone/files/unihertz-mtk-kpd.kl:system/phh/unihertz-mtk-kpd.kl \
+	device/pal/imphone/files/unihertz-mtk-tpd.kl:system/phh/unihertz-mtk-tpd.kl \
+	device/pal/imphone/files/unihertz-mtk-tpd-kpd.kl:system/phh/unihertz-mtk-tpd-kpd.kl \
+	device/pal/imphone/files/unihertz-fingerprint_key.kl:system/phh/unihertz-fingerprint_key.kl \
+	device/pal/imphone/files/zf6-goodixfp.kl:system/phh/zf6-goodixfp.kl \
+	device/pal/imphone/files/zf6-googlekey_input.kl:system/phh/zf6-googlekey_input.kl \
+	device/pal/imphone/files/teracube2e-mtk-kpd.kl:system/phh/teracube2e-mtk-kpd.kl \
+	device/pal/imphone/files/bv9500plus-mtk-kpd.kl:system/phh/bv9500plus-mtk-kpd.kl \
+	device/pal/imphone/files/moto-liber-gpio-keys.kl:system/phh/moto-liber-gpio-keys.kl \
+	device/pal/imphone/files/tecno-touchpanel.kl:system/phh/tecno-touchpanel.kl \
 
 SELINUX_IGNORE_NEVERALLOWS := true
 
@@ -148,7 +148,7 @@ PRODUCT_PACKAGES += \
     uevent
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/files/adbd.rc:system/etc/init/adbd.rc
+	device/pal/imphone/files/adbd.rc:system/etc/init/adbd.rc
 
 #MTK incoming SMS fix
 PRODUCT_PACKAGES += \
@@ -166,31 +166,31 @@ PRODUCT_PACKAGES += \
 	resetprop_phh
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/phh-securize.sh:system/bin/phh-securize.sh \
-	device/phh/treble/files/ota.sh:system/bin/ota.sh \
+	device/pal/imphone/phh-securize.sh:system/bin/phh-securize.sh \
+	device/pal/imphone/files/ota.sh:system/bin/ota.sh \
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/remove-telephony.sh:system/bin/remove-telephony.sh \
+	device/pal/imphone/remove-telephony.sh:system/bin/remove-telephony.sh \
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.software.secure_lock_screen.xml:system/etc/permissions/android.software.secure_lock_screen.xml \
-	device/phh/treble/files/android.software.controls.xml:system/etc/permissions/android.software.controls.xml \
+	device/pal/imphone/files/android.software.controls.xml:system/etc/permissions/android.software.controls.xml \
 
 PRODUCT_COPY_FILES += \
-        device/phh/treble/ld.config.26.txt:system/etc/ld.config.26.txt \
+        device/pal/imphone/ld.config.26.txt:system/etc/ld.config.26.txt \
 
 PRODUCT_PACKAGES += \
     asus-motor
 
 # Privapp-permissions whitelist for PhhTrebleApp
 PRODUCT_COPY_FILES += \
-	device/phh/treble/privapp-permissions-me.phh.treble.app.xml:system/etc/permissions/privapp-permissions-me.phh.treble.app.xml
+	device/pal/imphone/privapp-permissions-me.phh.treble.app.xml:system/etc/permissions/privapp-permissions-me.phh.treble.app.xml
 
 # Remote debugging
 PRODUCT_COPY_FILES += \
-	device/phh/treble/remote/dbclient:system/bin/dbclient \
-	device/phh/treble/remote/phh-remotectl.rc:system/etc/init/phh-remotectl.rc \
-	device/phh/treble/remote/phh-remotectl.sh:system/bin/phh-remotectl.sh \
+	device/pal/imphone/remote/dbclient:system/bin/dbclient \
+	device/pal/imphone/remote/phh-remotectl.rc:system/etc/init/phh-remotectl.rc \
+	device/pal/imphone/remote/phh-remotectl.sh:system/bin/phh-remotectl.sh \
 
 PRODUCT_PACKAGES += \
 	android.hardware.biometrics.fingerprint@2.1-service.oppo.compat \
@@ -218,11 +218,11 @@ PRODUCT_PACKAGES += \
 	oplus-alert-slider
 
 PRODUCT_COPY_FILES += \
-	device/phh/treble/empty:system/etc/smartpa_params/empty \
-	device/phh/treble/proprietary-files/gome/fs16xx_01s_left.preset:system/phh/gome/fs16xx_01s_left.preset \
-	device/phh/treble/proprietary-files/gome/fs16xx_01s_mono.preset:system/phh/gome/fs16xx_01s_mono.preset \
-	device/phh/treble/proprietary-files/gome/fs16xx_01s_right.preset:system/phh/gome/fs16xx_01s_right.preset \
-	device/phh/treble/proprietary-files/umidigi/fs16xx_01s_mono.preset:system/phh/umidigi/fs16xx_01s_mono.preset
+	device/pal/imphone/empty:system/etc/smartpa_params/empty \
+	device/pal/imphone/proprietary-files/gome/fs16xx_01s_left.preset:system/phh/gome/fs16xx_01s_left.preset \
+	device/pal/imphone/proprietary-files/gome/fs16xx_01s_mono.preset:system/phh/gome/fs16xx_01s_mono.preset \
+	device/pal/imphone/proprietary-files/gome/fs16xx_01s_right.preset:system/phh/gome/fs16xx_01s_right.preset \
+	device/pal/imphone/proprietary-files/umidigi/fs16xx_01s_mono.preset:system/phh/umidigi/fs16xx_01s_mono.preset
 
 PRODUCT_PACKAGES += phh-ota
 
@@ -237,4 +237,4 @@ include build/make/target/product/gsi_release.mk
 
 # Protect deskclock from power save
 PRODUCT_COPY_FILES += \
-	device/phh/treble/files/com.android.deskclock_whitelist.xml:system/etc/sysconfig/com.android.deskclock_whitelist.xml
+	device/pal/imphone/files/com.android.deskclock_whitelist.xml:system/etc/sysconfig/com.android.deskclock_whitelist.xml
