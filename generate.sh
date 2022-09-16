@@ -15,7 +15,7 @@ fi
 echo 'PRODUCT_MAKEFILES := \' > AndroidProducts.mk
 
 for part in a ab;do
-	for apps in vanilla foss;do
+	for apps in gapps;do
 		for arch in arm64 arm a64;do
 			for su in yes no;do
 				apps_suffix=""
@@ -24,14 +24,9 @@ for part in a ab;do
 				extra_packages=""
                 vndk="vndk.mk"
 		optional_base=""
-				if [ "$apps" == "foss" ];then
-					apps_suffix="f"
-					apps_script='$(call inherit-product, vendor/foss/foss.mk)'
-					apps_name="with FOSS apps"
-				fi
-				if [ "$apps" == "vanilla" ];then
-					apps_suffix="v"
-					apps_script=''
+        if [ "$apps" == "gapps" ];then
+					apps_suffix="g"
+					apps_script='$(call inherit-product, device/pal/imphone/gapps.mk)'
 				fi
 				if [ "$arch" == "arm" ];then
 					vndk="vndk-binder32.mk"
@@ -77,7 +72,7 @@ PRODUCT_NAME := $target
 PRODUCT_DEVICE := imos_${arch}_$part
 PRODUCT_BRAND := pal
 PRODUCT_SYSTEM_BRAND := pal
-PRODUCT_MODEL := iMPhone V1 $apps_name
+PRODUCT_MODEL := iM4
 
 # Overwrite the inherited "emulator" characteristics
 PRODUCT_CHARACTERISTICS := device
