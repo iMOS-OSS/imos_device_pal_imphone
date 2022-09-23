@@ -240,4 +240,4 @@ PRODUCT_COPY_FILES += \
 	device/pal/imphone/files/com.android.deskclock_whitelist.xml:system/etc/sysconfig/com.android.deskclock_whitelist.xml
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    ro.system.ota.json_url=https://raw.githubusercontent.com/iMOS-OSS/imos_release/main/ota.json
+    ro.system.ota.json_url=https://repository.im4.solu.systems/ota.json
